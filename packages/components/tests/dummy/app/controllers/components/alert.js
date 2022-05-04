@@ -6,4 +6,8 @@ export default class AlertController extends Controller {
   // I tried to use an helper, but without success (see https://hashicorp.slack.com/archives/C11JCBJTW/p1648751235987409)
   @action
   noop() {}
+
+  get fakeBool() {
+    return false;
+  }
 }

@@ -4,8 +4,8 @@
 
 <Hds::Alert
   @type="inline"
-  @color="warning"
-  @title="TEST ALERT without actions"
+  @color="success"
+  @title="ALERT without actions"
   @description="This should not show the `actions` block in the DOM (or show it empty)."
 />
 
@@ -13,8 +13,8 @@
 
 <Hds::Alert
   @type="inline"
-  @color="warning"
-  @title="TEST ALERT with actions"
+  @color="success"
+  @title="ALERT with actions"
   @description="This should show the `actions` block in the DOM."
 >
   <:actions as |A|>
@@ -22,22 +22,54 @@
   </:actions>
 </Hds::Alert>
 
+<br />
+
+<Hds::Alert
+  @type="inline"
+  @color="success"
+  @title="ALERT with actions with IF inside"
+  @description="This should not show the `actions` block in the DOM."
+>
+  <:actions as |A|>{{~#if this.fakeBool~}}<A.Button @text="Action" @color="secondary" />{{~/if~}}</:actions>
+  <:generic>
+    [my custom stuff here]
+  </:generic>
+
+</Hds::Alert>
+
 <h2 class="dummy-h2">Toast</h2>
 
 <Hds::Toast
-  @color="warning"
-  @title="TEST TOAST without actions"
+  @color="success"
+  @title="TOAST without actions"
   @description="This should not show the `actions` block in the DOM (or show it empty)."
+  @onDismiss={{this.noop}}
 />
 
 <br />
 
 <Hds::Toast
-  @color="warning"
-  @title="TEST TOAST with actions"
+  @color="success"
+  @title="TOAST with actions"
   @description="This should show the `actions` block in the DOM."
+  @onDismiss={{this.noop}}
 >
   <:actions as |A|>
     <A.Button @text="Action" @color="secondary" />
+  </:actions>
+</Hds::Toast>
+
+<br />
+
+<Hds::Toast
+  @color="critical"
+  @title="TOAST with actions with IF inside"
+  @description="This should not show the `actions` block in the DOM."
+  @onDismiss={{this.noop}}
+>
+  <:actions as |A|>
+    {{#if this.fakeBool}}
+      <A.Button @text="Action" @color="secondary" />
+    {{/if}}
   </:actions>
 </Hds::Toast>

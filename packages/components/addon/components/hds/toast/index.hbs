@@ -6,17 +6,18 @@
   @title={{@title}}
   @description={{@description}}
   @onDismiss={{@onDismiss}}
+  {{! Notice: the "ignoreActionsBlock" and "ignoreGenericBlock" args are not officially part of the API of the "Alert" component, but are used to by-pass the problem of Ember passing down the <actions> even if there are no "actions" declared in the Toast }}
+  @ignoreActionsBlock={{not (has-block "actions")}}
+  @ignoreGenericBlock={{not (has-block "generic")}}
   ...attributes
 >
+  {{! IMPORTANT: here we have to rely on handlebar's "squishies" (`~`) to remove the extra whitespace added by Ember (we're using ':empty' in CSS to hide the actions block when it's empty!) }}
+  {{! Notice: this needs to be done also on the consumer side too, unfortunately ¯\_(ツ)_/¯ }}
+  {{! See here: https://handlebarsjs.com/guide/expressions.html#whitespace-control }}
   <:actions as |A|>
-    {{#if (has-block "actions")}}
-      <pre>ACTIONS BLOCK IN TOAST</pre>
-      {{yield A to="actions"}}
-    {{/if}}
+    {{~yield A to="actions"~}}
   </:actions>
   <:generic as |G|>
-    {{#if (has-block "generic")}}
-      {{yield G to="generic"}}
-    {{/if}}
+    {{~yield G to="generic"~}}
   </:generic>
 </Hds::Alert>
