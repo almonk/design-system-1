@@ -101,6 +101,10 @@
   > * + * {
     margin-left: 16px;
   }
+
+  &:empty {
+    display: none;
+  }
 }
 
 // DISMISS
