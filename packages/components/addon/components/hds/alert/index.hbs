@@ -15,7 +15,8 @@
       {{/if}}
     </div>
 
-    {{#if (has-block "actions")}}
+    {{! Notice: the arg "ignoreActionsBlock" is not officially part of the API of the "Alert" component, but is used to by-pass the problem of Ember passing down the <actions> block even if there are no "actions" declared in the Toast }}
+    {{#if (and (has-block "actions") (not @ignoreActionsBlock))}}
       <div class="hds-alert__actions">
         {{yield
           (hash
@@ -29,7 +30,7 @@
     {{/if}}
 
     {{! Notice: the arg "ignoreGenericBlock" is not officially part of the API of the "Alert" component, but is used to by-pass the problem of Ember passing down the <generic> block even if there is no "generic" content declared in the Toast }}
-    {{#if (has-block "generic")}}
+    {{#if (and (has-block "generic") (not @ignoreGenericBlock))}}
       {{yield to="generic"}}
     {{/if}}
   </div>
