@@ -6,7 +6,7 @@
   @type="inline"
   @color="success"
   @title="ALERT without actions"
-  @description="This should not show the `actions` block in the DOM (or show it empty)."
+  @description="This should not show the `actions` block."
 />
 
 <br />
@@ -15,7 +15,7 @@
   @type="inline"
   @color="success"
   @title="ALERT with actions"
-  @description="This should show the `actions` block in the DOM."
+  @description="This should show the `actions` block."
 >
   <:actions as |A|>
     <A.Button @text="Action" @color="secondary" />
@@ -27,12 +27,46 @@
 <Hds::Alert
   @type="inline"
   @color="success"
-  @title="ALERT with actions with IF inside"
-  @description="This should not show the `actions` block in the DOM."
+  @title="ALERT with generic"
+  @description="This should show only the `generic` block."
 >
-  <:actions as |A|>{{~#if this.fakeBool~}}<A.Button @text="Action" @color="secondary" />{{~/if~}}</:actions>
   <:generic>
-    [my custom stuff here]
+    [my generic custom stuff here]
+  </:generic>
+</Hds::Alert>
+
+<br />
+
+<Hds::Alert
+  @type="inline"
+  @color="success"
+  @title="ALERT with actions with IF ({{this.fakeBool}})"
+  @description="This should not show space above the `actions` block."
+>
+  <:actions as |A|>
+    {{~#if this.fakeBool~}}
+      <A.Button @text="Action" @color="secondary" />
+    {{~/if~}}
+  </:actions>
+
+</Hds::Alert>
+
+<br />
+
+<Hds::Alert
+  @type="inline"
+  @color="success"
+  @title="ALERT with actions with IF ({{this.fakeBool}}) + generic content"
+  @description="This should not show space above the `actions` block."
+>
+  <:actions as |A|>
+    {{~#if this.fakeBool~}}
+      <A.Button @text="Action" @color="secondary" />
+    {{~/if~}}
+  </:actions>
+
+  <:generic>
+    [my generic custom stuff here]
   </:generic>
 
 </Hds::Alert>
@@ -42,7 +76,7 @@
 <Hds::Toast
   @color="success"
   @title="TOAST without actions"
-  @description="This should not show the `actions` block in the DOM (or show it empty)."
+  @description="This should not show the `actions` block."
   @onDismiss={{this.noop}}
 />
 
@@ -51,25 +85,58 @@
 <Hds::Toast
   @color="success"
   @title="TOAST with actions"
-  @description="This should show the `actions` block in the DOM."
+  @description="This should show the `actions` block."
   @onDismiss={{this.noop}}
 >
   <:actions as |A|>
     <A.Button @text="Action" @color="secondary" />
   </:actions>
+
 </Hds::Toast>
 
 <br />
 
 <Hds::Toast
-  @color="critical"
-  @title="TOAST with actions with IF inside"
-  @description="This should not show the `actions` block in the DOM."
+  @color="success"
+  @title="TOAST with generic"
+  @description="This should show only the `generic` block."
+  @onDismiss={{this.noop}}
+>
+  <:generic>
+    [my generic custom stuff here]
+  </:generic>
+</Hds::Toast>
+
+<br />
+
+<Hds::Toast
+  @color="success"
+  @title="TOAST with actions with IF ({{this.fakeBool}})"
+  @description="This should not show space above the `actions` block."
   @onDismiss={{this.noop}}
 >
   <:actions as |A|>
-    {{~#if this.fakeBool}}
+    {{~#if this.fakeBool~}}
       <A.Button @text="Action" @color="secondary" />
-    {{/if~}}
+    {{~/if~}}
   </:actions>
+
+</Hds::Toast>
+
+<br />
+
+<Hds::Toast
+  @color="success"
+  @title="TOAST with actions with IF  ({{this.fakeBool}}) + generic content"
+  @description="This should not show space above the `actions` block."
+  @onDismiss={{this.noop}}
+>
+  <:actions as |A|>
+    {{~#if this.fakeBool~}}
+      <A.Button @text="Action" @color="secondary" />
+    {{~/if~}}
+  </:actions>
+  <:generic>
+    [my generic custom stuff here]
+  </:generic>
 </Hds::Toast>
